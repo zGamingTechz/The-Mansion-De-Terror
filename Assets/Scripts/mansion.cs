@@ -33,6 +33,7 @@ public class mansion : MonoBehaviour
         TurnedLeft,
         TurnedRight,
         TakenToMansion,
+        LockedInRoom,
     }
 
     void Start()
@@ -105,6 +106,10 @@ public class mansion : MonoBehaviour
                 noButton.onClick.AddListener(NoTurnedRight);
                 break;
             case StoryState.TakenToMansion:
+                yesButton.onClick.AddListener(LockedInRoom);
+                noButton.onClick.AddListener(LockedInRoom);
+                break;
+            case StoryState.LockedInRoom:
                 yesButton.onClick.AddListener(YesTurnedRight);
                 noButton.onClick.AddListener(NoTurnedRight);
                 break;
@@ -241,6 +246,13 @@ public class mansion : MonoBehaviour
     {
         currentState = StoryState.TakenToMansion;
         DisplayStory("They take you to a mansion, from outside it looks creepy asf. They're dragging you in. Continue?");
+        UpdateButtons();
+    }
+
+    void LockedInRoom()
+    {
+        currentState = StoryState.LockedInRoom;
+        DisplayStory("They drag and lock you in a room. Try to escape?");
         UpdateButtons();
     }
 }
