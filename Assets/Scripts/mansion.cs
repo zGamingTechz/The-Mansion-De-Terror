@@ -32,6 +32,7 @@ public class mansion : MonoBehaviour
         CrossedMansion,
         TurnedLeft,
         TurnedRight,
+        TakenToMansion,
     }
 
     void Start()
@@ -80,8 +81,8 @@ public class mansion : MonoBehaviour
                 noButton.onClick.AddListener(OutsideHouse);
                 break;
             case StoryState.Kidnapped:
-                yesButton.onClick.AddListener(work_in_progress);
-                noButton.onClick.AddListener(work_in_progress);
+                yesButton.onClick.AddListener(TakenToMansion);
+                noButton.onClick.AddListener(TakenToMansion);
                 break;
             case StoryState.OutsideHouse:
                 yesButton.onClick.AddListener(work_in_progress);
@@ -103,12 +104,16 @@ public class mansion : MonoBehaviour
                 yesButton.onClick.AddListener(YesTurnedRight);
                 noButton.onClick.AddListener(NoTurnedRight);
                 break;
+            case StoryState.TakenToMansion:
+                yesButton.onClick.AddListener(YesTurnedRight);
+                noButton.onClick.AddListener(NoTurnedRight);
+                break;
         }
     }
 
     void work_in_progress()
     {
-        DisplayStory("Work inn progress hehe...");
+        DisplayStory("Work in progress hehe...");
     }
 
     void Died()
@@ -230,5 +235,12 @@ public class mansion : MonoBehaviour
     void TurnedLeft()
     {
         SceneManager.LoadScene(4);
+    }
+
+    void TakenToMansion()
+    {
+        currentState = StoryState.TakenToMansion;
+        DisplayStory("They take you to a mansion, from outside it looks creepy asf. They're dragging you in. Continue?");
+        UpdateButtons();
     }
 }
