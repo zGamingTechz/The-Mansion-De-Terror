@@ -26,5 +26,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/About.unity
     guid: 2915f6483e2d7464082ae480f1d26841
+  - enabled: 1
+    path: Assets/Scenes/InMansion.unity
+    guid: 1b79075563aa49a45a316dfcde2ee998
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
