@@ -18,6 +18,9 @@ public class inMansion : MonoBehaviour
     public enum StoryState
     {
         LockedInRoom,
+        CutRope,
+        YouDumb,
+        RanAway,
     }
 
     void Start()
@@ -38,8 +41,20 @@ public class inMansion : MonoBehaviour
         switch (currentState)
         {
             case StoryState.LockedInRoom:
+                yesButton.onClick.AddListener(CutRope);
+                noButton.onClick.AddListener(YouDumb);
+                break;
+            case StoryState.CutRope:
+                yesButton.onClick.AddListener(RanAway);
+                noButton.onClick.AddListener(RanAway);
+                break;
+            case StoryState.RanAway:
                 yesButton.onClick.AddListener(work_in_progress);
                 noButton.onClick.AddListener(work_in_progress);
+                break;
+            case StoryState.YouDumb:
+                yesButton.onClick.AddListener(ScrewYou);
+                noButton.onClick.AddListener(CutRope);
                 break;
         }
     }
@@ -67,7 +82,28 @@ public class inMansion : MonoBehaviour
     void LockedInRoom()
     {
         currentState = StoryState.LockedInRoom;
-        DisplayStory("They drag and lock you in a room. Try to escape?");
+        DisplayStory("They drag and tie you up in a room. Try to escape?");
+        UpdateButtons();
+    }
+
+    void CutRope()
+    {
+        currentState = StoryState.CutRope;
+        DisplayStory("You try to cut your rope by scratching it with a piece of broken glass. Continue?");
+        UpdateButtons();
+    }
+
+    void RanAway()
+    {
+        currentState = StoryState.RanAway;
+        DisplayStory("You manage to run away from them and wander through random hallways. Continue?");
+        UpdateButtons();
+    }
+
+    void YouDumb()
+    {
+        currentState = StoryState.YouDumb;
+        DisplayStory("Come on! Are you dumb?");
         UpdateButtons();
     }
 }
