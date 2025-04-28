@@ -6,11 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class inMansion : MonoBehaviour
 {
+    public static StoryState startState = StoryState.LockedInRoom;
     [SerializeField] Text storyText;
     [SerializeField] Button yesButton;
     [SerializeField] Button noButton;
-
-    public static bool inhaler = false;
 
     private StoryState currentState;
 
@@ -21,11 +20,19 @@ public class inMansion : MonoBehaviour
         CutRope,
         YouDumb,
         RanAway,
+        HeardFootsteps,
     }
 
     void Start()
     {
-        LockedInRoom();
+        if (startState == StoryState.LockedInRoom)
+        {
+            LockedInRoom();
+        }
+        else if (startState == StoryState.HeardFootsteps)
+        {
+            HeardFootsteps();
+        }
     }
 
     void DisplayStory(string text)
@@ -55,6 +62,10 @@ public class inMansion : MonoBehaviour
             case StoryState.YouDumb:
                 yesButton.onClick.AddListener(ScrewYou);
                 noButton.onClick.AddListener(CutRope);
+                break;
+            case StoryState.HeardFootsteps:
+                yesButton.onClick.AddListener(work_in_progress);
+                noButton.onClick.AddListener(LockedInRoom);
                 break;
         }
     }
@@ -104,6 +115,13 @@ public class inMansion : MonoBehaviour
     {
         currentState = StoryState.YouDumb;
         DisplayStory("Come on! Are you dumb?");
+        UpdateButtons();
+    }
+
+    void HeardFootsteps()
+    {
+        currentState = StoryState.HeardFootsteps;
+        DisplayStory("As you enter the mansion, you immidiatly start hearing footsteps. Hide?");
         UpdateButtons();
     }
 }

@@ -10,8 +10,6 @@ public class mansion : MonoBehaviour
     [SerializeField] Button yesButton;
     [SerializeField] Button noButton;
 
-    public static bool inhaler = false;
-
     private StoryState currentState;
 
     // Enum to define the different states in the story
@@ -110,7 +108,7 @@ public class mansion : MonoBehaviour
                 noButton.onClick.AddListener(LockedInRoom);
                 break;
             case StoryState.AtMansion:
-                yesButton.onClick.AddListener(work_in_progress);
+                yesButton.onClick.AddListener(EnterMansion);
                 noButton.onClick.AddListener(Died);
                 break;
         }
@@ -251,6 +249,7 @@ public class mansion : MonoBehaviour
 
     void LockedInRoom()
     {
+        inMansion.startState = inMansion.StoryState.LockedInRoom;
         SceneManager.LoadScene(7);
     }
 
@@ -259,5 +258,11 @@ public class mansion : MonoBehaviour
         currentState = StoryState.AtMansion;
         DisplayStory("You follow them and spot a mansion with their Jeep parked outside. Suddenly you see a lion approachinng you. Run in??");
         UpdateButtons();
+    }
+
+    void EnterMansion()
+    {
+        inMansion.startState = inMansion.StoryState.HeardFootsteps;
+        SceneManager.LoadScene(7);
     }
 }
