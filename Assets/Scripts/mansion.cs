@@ -33,6 +33,7 @@ public class mansion : MonoBehaviour
         TurnedLeft,
         TurnedRight,
         TakenToMansion,
+        AtMansion,
     }
 
     void Start()
@@ -85,7 +86,7 @@ public class mansion : MonoBehaviour
                 noButton.onClick.AddListener(TakenToMansion);
                 break;
             case StoryState.OutsideHouse:
-                yesButton.onClick.AddListener(work_in_progress);
+                yesButton.onClick.AddListener(AtMansion);
                 noButton.onClick.AddListener(GoBack);
                 break;
             case StoryState.GoBack:
@@ -107,6 +108,10 @@ public class mansion : MonoBehaviour
             case StoryState.TakenToMansion:
                 yesButton.onClick.AddListener(LockedInRoom);
                 noButton.onClick.AddListener(LockedInRoom);
+                break;
+            case StoryState.AtMansion:
+                yesButton.onClick.AddListener(work_in_progress);
+                noButton.onClick.AddListener(Died);
                 break;
         }
     }
@@ -247,5 +252,12 @@ public class mansion : MonoBehaviour
     void LockedInRoom()
     {
         SceneManager.LoadScene(7);
+    }
+
+    void AtMansion()
+    {
+        currentState = StoryState.AtMansion;
+        DisplayStory("You follow them and spot a mansion with their Jeep parked outside. Suddenly you see a lion approachinng you. Run in??");
+        UpdateButtons();
     }
 }
