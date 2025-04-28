@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using NUnit.Framework;
 
 public class inMansion : MonoBehaviour
 {
@@ -21,6 +22,11 @@ public class inMansion : MonoBehaviour
         YouDumb,
         RanAway,
         HeardFootsteps,
+        HiddenFromThugs,
+        Lost,
+        BloodyRoom,
+        RanFromRoom,
+        StayedInRoom,
     }
 
     void Start()
@@ -56,16 +62,36 @@ public class inMansion : MonoBehaviour
                 noButton.onClick.AddListener(RanAway);
                 break;
             case StoryState.RanAway:
-                yesButton.onClick.AddListener(work_in_progress);
-                noButton.onClick.AddListener(work_in_progress);
+                yesButton.onClick.AddListener(Lost);
+                noButton.onClick.AddListener(Lost);
                 break;
             case StoryState.YouDumb:
                 yesButton.onClick.AddListener(ScrewYou);
                 noButton.onClick.AddListener(CutRope);
                 break;
             case StoryState.HeardFootsteps:
-                yesButton.onClick.AddListener(work_in_progress);
+                yesButton.onClick.AddListener(HiddenFromThugs);
                 noButton.onClick.AddListener(LockedInRoom);
+                break;
+            case StoryState.HiddenFromThugs:
+                yesButton.onClick.AddListener(work_in_progress);
+                noButton.onClick.AddListener(RanAway);
+                break;
+            case StoryState.Lost:
+                yesButton.onClick.AddListener(BloodyRoom);
+                noButton.onClick.AddListener(RanFromRoom);
+                break;
+            case StoryState.BloodyRoom:
+                yesButton.onClick.AddListener(RanFromRoom);
+                noButton.onClick.AddListener(StayedInRoom);
+                break;
+            case StoryState.RanFromRoom:
+                yesButton.onClick.AddListener(work_in_progress);
+                noButton.onClick.AddListener(work_in_progress);
+                break;
+            case StoryState.StayedInRoom:
+                yesButton.onClick.AddListener(work_in_progress);
+                noButton.onClick.AddListener(work_in_progress);
                 break;
         }
     }
@@ -122,6 +148,41 @@ public class inMansion : MonoBehaviour
     {
         currentState = StoryState.HeardFootsteps;
         DisplayStory("As you enter the mansion, you immidiatly start hearing footsteps. Hide?");
+        UpdateButtons();
+    }
+
+    void HiddenFromThugs()
+    {
+        currentState = StoryState.HiddenFromThugs;
+        DisplayStory("You hide and peek from a corner. You see that they are the same thugs and they're searching for some hidden gem. Follow them?");
+        UpdateButtons();
+    }
+
+    void Lost()
+    {
+        currentState = StoryState.Lost;
+        DisplayStory("You seem to be lost. You see a room with blood cominng out. Do you want to check?");
+        UpdateButtons();
+    }
+
+    void BloodyRoom()
+    {
+        currentState = StoryState.BloodyRoom;
+        DisplayStory("You see all the thugs slaughtered in the room with blood flowing everywhere, RUN?");
+        UpdateButtons();
+    }
+
+    void RanFromRoom()
+    {
+        currentState = StoryState.RanFromRoom;
+        DisplayStory("You ran away from the room...To be continued.");
+        UpdateButtons();
+    }
+
+    void StayedInRoom()
+    {
+        currentState = StoryState.StayedInRoom;
+        DisplayStory("You tihnk you're hallucinating...you see the girl again...");
         UpdateButtons();
     }
 }
